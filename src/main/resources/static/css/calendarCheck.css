@@ -1,0 +1,98 @@
+/* calendarCheck.css */
+
+/* 기본 스타일 유지 */
+
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+}
+
+.calendar div {
+    border: 1px solid #ddd;
+    padding: 40px;
+    text-align: center;
+    box-sizing: border-box; /* padding이 포함된 전체 크기로 박스 크기를 계산합니다 */
+}
+
+.calendar .header {
+    font-weight: bold;
+    background-color: #f2f2f2;
+}
+
+.calendar .highlight {
+    background-color: #fff3cd;
+    border: 2px solid orange;
+    position: relative;
+}
+
+/* calendarCheck.css */
+
+.calendar .highlight .check-icon {
+    width: 16px; /* 체크 아이콘의 크기 */
+    height: 16px; /* 체크 아이콘의 크기 */
+    background-color: orange;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px; /* 아이콘 내의 글꼴 크기 */
+    margin: 4px; /* 적절한 간격을 유지합니다 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 상단 여백 50% */
+    left: 50%; /* 좌측 여백 50% */
+    transform: translate(-50%, -50%); /* 요소의 중앙 정렬 */
+    pointer-events: none; /* 클릭 이벤트를 아이콘이 가로채지 않도록 설정합니다 */
+}
+.calendar .highlight .check-icon.visible {
+    visibility: visible; /* visible 클래스가 추가되면 보이게 설정 */
+}
+
+.side-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px; /* 조정이 필요한 경우에 따라 적절한 오른쪽 여백을 설정하세요 */
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .side-label {
+        right: 0;
+    }
+}
+

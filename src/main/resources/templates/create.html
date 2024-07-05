@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Schedule</title>
+    <link rel="stylesheet" th:href="@{/css/create.css}">
+</head>
+<body>
+<header>
+    <div class="site-name">Plan Optima</div>
+    <nav>
+        <ul>
+            <li><a href="/cabinet">Cabinet</a></li>
+            <li><a href="/create">Create Schedule</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Check</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Create Schedule</h1>
+    <form action="/create" th:method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="difficulty">Difficulty:</label>
+        <input type="range" id="difficulty" name="difficulty" min="1" max="10" value="5"><br><br>
+
+        <label for="deadline">Deadline:</label>
+        <input type="datetime-local" id="deadline" name="deadline" required><br><br>
+
+        <label for="restTime">Rest Time:</label>
+        <input type="number" id="restTime" name="restTime" required><br><br>
+
+        <label for="urgency">Urgency:</label>
+        <input type="number" id="urgency" name="urgency" min="1" max="10" required><br><br>
+
+        <label for="importance">Importance:</label>
+        <input type="number" id="importance" name="importance" min="1" max="10" required><br><br>
+
+        <label for="stress">stress:</label>
+        <input type="number" id="stress" name="stress" min="1" max="10" required><br><br>
+
+
+        <button type="submit">Save Schedule</button>
+    </form>
+</main>
+</body>
+</html>
+

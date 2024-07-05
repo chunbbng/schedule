@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Schedule</title>
+    <link rel="stylesheet" th:href="@{/css/create.css}">
+</head>
+<body>
+<header>
+    <div class="site-name">Plan Optima</div>
+    <nav>
+        <ul>
+            <li><a href="/basic/cabinet">Cabinet</a></li>
+            <li><a href="/basic/create">Create Schedule</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Check</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Create Schedule</h1>
+    <form action="/basic/create" method="post" th:object="${schedule}">
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required><br>
+        <label>Deadline:</label>
+        <input type="datetime-local" th:field="*{deadline}" required><br>
+        <label>Difficulty:</label>
+        <input type="number" th:field="*{difficulty}" min="1" max="10" required><br>
+        <label>Urgency:</label>
+        <input type="number" th:field="*{urgency}" min="1" max="10" required><br>
+        <label>Importance:</label>
+        <input type="number" th:field="*{importance}" min="1" max="10" required><br>
+        <label>Rest Time:</label>
+        <input type="number" th:field="*{restTime}" required><br>
+        <label>Preference Time:</label>
+        <select th:field="*{preferenceTime}">
+            <option value="MORNING">Morning</option>
+            <option value="AFTERNOON">Afternoon</option>
+            <option value="EVENING">Evening</option>
+            <option value="NIGHT">Night</option>
+        </select><br>
+        <button type="submit">Save Schedule</button>
+    </form>
+</main>
+</body>
+</html>

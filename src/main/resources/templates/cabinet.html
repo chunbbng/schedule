@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabinet</title>
+    <link rel="stylesheet" th:href="@{/css/cabinet.css}">
+</head>
+<body>
+<header>
+    <div class="site-name">Plan Optima</div>
+    <nav>
+        <ul>
+            <li><a href="/cabinet">Cabinet</a></li>
+            <li><a href="/create">Create Schedule</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Check</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Cabinet</h1>
+    <div th:each="schedule : ${schedules}" class="schedule-box">
+        <h3 th:text="${schedule.name}">Schedule Title</h3>
+        <p th:text="'Deadline: ' + ${schedule.deadline}">Deadline</p>
+    </div>
+</main>
+</body>
+</html>

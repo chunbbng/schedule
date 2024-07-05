@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabinet</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <div class="site-name">Plan Optima</div>
+    <nav>
+        <ul>
+            <li><a href="/cabinet">Cabinet</a></li>
+            <li><a href="/create">Create Schedule</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Check</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Cabinet</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Deadline</th>
+            <th>Difficulty</th>
+            <th>Urgency</th>
+            <th>Importance</th>
+            <th>Rest Time</th>
+            <th>Preference Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="schedule : ${schedules}">
+            <td th:text="${schedule.name}">Name</td>
+            <td th:text="${#dates.format(schedule.deadline, 'yyyy-MM-dd HH:mm')}">Deadline</td>
+            <td th:text="${schedule.difficulty}">Difficulty</td>
+            <td th:text="${schedule.urgency}">Urgency</td>
+            <td th:text="${schedule.importance}">Importance</td>
+            <td th:text="${schedule.restTime}">Rest Time</td>
+            <td th:text="${schedule.preferenceTime}">Preference Time</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

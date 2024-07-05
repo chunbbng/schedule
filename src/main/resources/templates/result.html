@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Result</title>
+    <link rel="stylesheet" th:href="@{/css/result.css}">
+</head>
+<body>
+<div class="container">
+    <div class="text-box">
+        <span th:text="${schedule.name}">블로그 포스팅</span>
+    </div>
+    <div class="box">
+        <span>일정을</span>
+    </div>
+    <div class="text-box">
+        <span th:text="${result.adjustDays}">3일</span>
+    </div>
+    <div class="box">
+        <span>동안</span>
+    </div>
+    <div class="text-box">
+        <span>하루</span>
+    </div>
+    <div class="text-box">
+        <span th:text="${result.adjustTime}">1시간</span>
+    </div>
+    <div class="recommendation">
+        <span>할애해서 일정을 마무리하기를 추천해 드릴게요</span>
+    </div>
+    <br>
+    <!-- Buttons similar to the attached image -->
+    <div class="container">
+    <div>
+        <form th:action="@{/calendarCheck/{id}(id=${schedule.id})}" method="get">
+            <button type="submit" class="button">
+                <span>Plan 저장하기</span>
+            </button>
+        </form>
+    </div>
+    <div class="button">
+        <span>Optima 다시 생성하기</span>
+    </div>
+    <div class="button">
+        <span>다른 Plan과 병합하기</span>
+    </div>
+    </div>
+</div>
+</body>
+</html>
+
