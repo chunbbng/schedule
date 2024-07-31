@@ -1,13 +1,21 @@
 package hello.schedule.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.Period;
 
 @Data
+@Entity
 public class Schedule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private LocalDateTime startTime;
     private LocalDateTime deadline;
@@ -25,12 +33,13 @@ public class Schedule {
     }
 
     public Schedule() {
+        this.startTime = LocalDateTime.now();
     }
 
-    public Schedule(String name, LocalDateTime startTime, LocalDateTime deadline, int difficulty,
+    public Schedule(String name, LocalDateTime deadline, int difficulty,
                     int urgency, int importance, int restTime, int stress) {
         this.name = name;
-        this.startTime = startTime;
+        this.startTime = LocalDateTime.now();
         this.deadline = deadline;
         this.difficulty = difficulty;
         this.urgency = urgency;
