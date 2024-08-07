@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ECharts Getting Started Example</title>
+    <!-- ECharts 라이브러리 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+<!-- 차트를 렌더링할 요소 -->
+<div id="main" style="width: 600px; height: 400px;"></div>
+<div id="pieChart" style="width: 600px; height: 400px;"></div>
+
+<!-- ECharts 초기화 및 설정 -->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // ECharts 인스턴스 생성
+        const myChart = echarts.init(document.getElementById('main'));
+
+        // 차트 옵션 설정
+        myChart.setOption({
+            title: {
+                text: 'ECharts Getting Started Example'
+            },
+            tooltip: {},
+            xAxis: {
+                data: ['shirt', 'cardigan', 'chiffon', 'pants', 'heels', 'socks']
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: 'sales',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }
+            ]
+        });
+
+        const pieChart = echarts.init(document.getElementById('pieChart'));
+
+        pieChart.setOption({
+            title: {
+                text: 'Sales Distribution'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: 'sales',
+                    type: 'pie',
+                    radius: '50%',
+                    data: [
+                        {value: 5, name: 'shirt'},
+                        {value: 20, name: 'cardigan'},
+                        {value: 36, name: 'chiffon'},
+                        {value: 10, name: 'pants'},
+                        {value: 10, name: 'heels'},
+                        {value: 20, name: 'socks'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+    });
+</script>
+</body>
+</html>

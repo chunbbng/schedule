@@ -1,4 +1,4 @@
-package hello.schedule.domain;
+package hello.schedule.domain.schedule;
 
 import lombok.Data;
 

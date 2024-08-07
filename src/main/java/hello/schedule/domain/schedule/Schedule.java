@@ -1,23 +1,25 @@
-package hello.schedule.domain;
+package hello.schedule.domain.schedule;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import hello.schedule.domain.member.Member;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.time.Period;
 
 @Data
 @Entity
 public class Schedule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idS;
 
     private String name;
+
+    @DateTimeFormat(pattern = "yyyy:MM:dd hh:mm:ss")
     private LocalDateTime startTime;
+
     private LocalDateTime deadline;
     private int difficulty;
     private int urgency;
@@ -25,12 +27,17 @@ public class Schedule {
     private int restTime;
     private PreferenceTime preferenceTime;
     private int stress;
+
     public enum PreferenceTime {
         MORNING,
         AFTERNOON,
         EVENING,
         NIGHT
     }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "existing_foreign_key_column_name")
+    private Member member;
 
     public Schedule() {
         this.startTime = LocalDateTime.now();

@@ -1,10 +1,9 @@
 package hello.schedule.service;
 
-import hello.schedule.domain.Schedule;
-import hello.schedule.domain.ScheduleResult;
+import hello.schedule.domain.schedule.Schedule;
+import hello.schedule.domain.schedule.ScheduleResult;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 

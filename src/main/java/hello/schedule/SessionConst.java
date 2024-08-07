@@ -1,2 +1,6 @@
-package hello.schedule;public interface SessionConst {
+package hello.schedule;
+
+public interface SessionConst {
+
+    public static final String LOGIN_MEMBER = "loginMember";
 }
