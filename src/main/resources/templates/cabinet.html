@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Cabinet</title>
     <link rel="stylesheet" th:href="@{/css/cabinet.css}">
+    <style>
+        .checkbox {
+            display: none;
+        }
+        #process-selection {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -20,10 +28,59 @@
 </header>
 <main>
     <h1>Cabinet</h1>
-    <div th:each="schedule : ${schedules}" class="schedule-box">
-        <h3 th:text="${schedule.name}">Schedule Title</h3>
-        <p th:text="'Deadline: ' + ${schedule.deadline}">Deadline</p>
+
+    <!-- 체크모드를 활성화/비활성화하는 버튼 -->
+    <div>
+        <button id="toggle-check-mode">체크모드</button>
     </div>
+
+    <!-- 체크된 항목을 처리하는 폼 추가 -->
+    <form id="selection-form" th:action="@{/cabinet}" method="post">
+        <!-- 스케줄 목록 -->
+        <div th:each="schedule : ${schedules}" class="schedule-box">
+            <label>
+                <input type="checkbox" name="selectedSchedules" th:value="${schedule.id}" class="checkbox">
+                <h3 th:text="${schedule.name}">Schedule Title</h3>
+                <p th:text="'Deadline: ' + ${schedule.deadline}">Deadline</p>
+            </label>
+        </div>
+        <!-- 선택된 항목을 처리하는 버튼 -->
+        <button type="button" id="process-selection">선택된 항목 처리</button>
+    </form>
+
+    <script>
+
+        document.getElementById('toggle-check-mode').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const checkModeEnabled = checkboxes[0].style.display === 'none';
+            checkboxes.forEach(checkbox => checkbox.style.display = checkModeEnabled ? 'inline-block' : 'none');
+            document.getElementById('process-selection').style.display = checkModeEnabled ? 'block' : 'none';
+        });
+
+        document.getElementById('process-selection').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => parseInt(checkbox.value, 10));
+
+            fetch(`/cabinet`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selectedSchedules: selectedIds })
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url; // 서버가 리다이렉트한 URL로 이동
+                    } else {
+                        console.error('Failed to process selection');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+    </script>
 </main>
 </body>
 </html>

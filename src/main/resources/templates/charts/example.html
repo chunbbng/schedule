@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ECharts Getting Started Example</title>
@@ -12,7 +12,20 @@
 <div id="pieChart" style="width: 600px; height: 400px;"></div>
 
 <!-- ECharts 초기화 및 설정 -->
-<script type="text/javascript">
+<script th:inline="javascript">
+
+    let difficulties = /*[[${schedules}]]*/ [];
+
+    let difficultiesValues = [];
+    difficulties.forEach(schedule => {
+        // schedule은 difficulties 배열의 현재 요소를 의미합니다
+        difficultiesValues.push(schedule.stress);
+    });
+
+    console.log("difficulty:" ,difficultiesValues);
+
+    console.log("Selected IDs:", difficulties);
+
     document.addEventListener('DOMContentLoaded', function () {
         // ECharts 인스턴스 생성
         const myChart = echarts.init(document.getElementById('main'));
@@ -24,14 +37,14 @@
             },
             tooltip: {},
             xAxis: {
-                data: ['shirt', 'cardigan', 'chiffon', 'pants', 'heels', 'socks']
+                data: difficultiesValues.map((_, index) => 'Task ' + (index + 1)) // X축에 태스크 라벨
             },
             yAxis: {},
             series: [
                 {
-                    name: 'sales',
+                    name: 'Difficulty',
                     type: 'bar',
-                    data: [5, 20, 36, 10, 10, 20]
+                    data: difficultiesValues // difficulties 배열의 값을 차트 데이터로 사용
                 }
             ]
         });
