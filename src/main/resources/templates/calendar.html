@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/calendarCheck.css">
+    <title>Calendar</title>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+</head>
+<body>
+<h1 th:text="'Schedule: ' + ${calendarDTO.scheduleName}">Schedule: </h1> <!-- 스케줄 이름 표시 -->
+
+<div id='calendar' style="max-width: 900px; margin: 0 auto;"></div>
+
+<div class="button-container">
+    <button id="saveDates" class="save-button" th:onclick="|window.location='http://localhost:8080'|">돌아가기</button>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // DTO에서 selectedDates를 JavaScript 배열로 변환
+        let calendarSchedule = /*[[${calendarDTO.scheduleName}]]*/ '';  // 스케줄 이름
+        let selectedDates = /*[[${calendarDTO.selectedDates}]]*/ []; // 이미 배열로 전달됨
+
+        console.log('Selected Dates:', selectedDates);
+        console.log('calendarSchedule:', calendarSchedule);
+
+        const calendarEl = document.getElementById('calendar');
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: selectedDates.map(dateStr => {
+                return {
+                    title: '선택한 일정',
+                    start: dateStr,
+                    end: new Date(new Date(dateStr).getTime() + 86400000).toISOString().split('T')[0],
+                    backgroundColor: 'blue',
+                    borderColor: 'lightblue'
+                };
+            })
+        });
+
+        calendar.render();
+    });
+</script>
+
+
+
+
+</body>
+</html>

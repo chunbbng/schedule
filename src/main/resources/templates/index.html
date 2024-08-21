@@ -14,7 +14,15 @@
             <li><a href="/create">Create Schedule</a></li>
             <li><a href="#">Calendar</a></li>
             <li><a href="#">Check</a></li>
-            <li><a href="/loginHome">Login</a></li>
+            <li th:if="${isLoggedIn}">
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" style="background:none;border:none;color:white;cursor:pointer;">Logout</button>
+                </form>
+            </li>
+            <li th:unless="${isLoggedIn}">
+                <a href="/loginHome">Login</a>
+            </li>
+            <li th:if="${memberName}" th:text="'환영합니다, ' + ${memberName} + '님!'"></li>
         </ul>
     </nav>
 </header>

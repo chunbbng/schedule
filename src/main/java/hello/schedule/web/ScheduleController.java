@@ -34,6 +34,7 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
 
+
     @GetMapping("/cabinet")
     public String sendCabinet(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
                               RedirectAttributes redirectAttributes, Model model) {
@@ -100,6 +101,26 @@ public class ScheduleController {
         return "cabinet";
     }
 
+    @PostMapping("/cabinet/delete")
+    public String deleteSelectedSchedules(@RequestBody SelectionRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            List<Long> selectedIds = request.getSelectedSchedules();
+
+            // 선택된 스케줄을 삭제합니다.
+            for (Long selectedId : selectedIds) {
+                scheduleRepository.deleteById(selectedId);
+            }
+
+            // 삭제 후 다시 Cabinet 페이지로 리다이렉트
+            return "redirect:/cabinet";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/errorPage"; // 에러 시 리다이렉트
+        }
+    }
+
+
     @GetMapping("/create")
     public String add(){
         return "/create";
@@ -156,9 +177,14 @@ public class ScheduleController {
     public String calendarCheck(@PathVariable Long id, Model model) {
         Optional<Schedule> schedule = scheduleRepository.findById(id);
         if (schedule.isPresent()) {
+            Schedule actualSchedule = schedule.get();
             ScheduleResult result = concentrateSchedule.process(schedule.get());
             model.addAttribute("adjustDays", result.getAdjustDays());
             model.addAttribute("adjustTime", result.getAdjustTime());
+            model.addAttribute("startTime", actualSchedule.getStartTime());
+            model.addAttribute("deadLine", actualSchedule.getDeadline());
+            model.addAttribute("id", id);
+            model.addAttribute("scheduleName", actualSchedule.getName());
         }
         return "calendarCheck";
     }

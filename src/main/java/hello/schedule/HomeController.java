@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 public class HomeController {
 
     @GetMapping("/")
-    public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model){
-
-        //로그인
-        if(loginMember == null){
-            return "index";
+    public String home(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+        if (loginMember != null) {
+            model.addAttribute("memberName", loginMember.getName());
+            model.addAttribute("isLoggedIn", true); // 로그인 여부 추가
+        } else {
+            model.addAttribute("isLoggedIn", false); // 로그아웃 상태
         }
-
-        //세션이 유지되면 로그인으로 이동
-        model.addAttribute("member", loginMember);
-        return "index";
+        return "index"; // 메인 페이지 템플릿 이름
     }
 }

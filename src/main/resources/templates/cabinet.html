@@ -8,7 +8,7 @@
         .checkbox {
             display: none;
         }
-        #process-selection {
+        #process-selection, #delete-selection {
             display: none;
         }
     </style>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- 체크된 항목을 처리하는 폼 추가 -->
-    <form id="selection-form" th:action="@{/cabinet}" method="post">
+    <form id="selection-form">
         <!-- 스케줄 목록 -->
         <div th:each="schedule : ${schedules}" class="schedule-box">
             <label>
@@ -44,17 +44,18 @@
                 <p th:text="'Deadline: ' + ${schedule.deadline}">Deadline</p>
             </label>
         </div>
-        <!-- 선택된 항목을 처리하는 버튼 -->
+        <!-- 선택된 항목을 처리하는 버튼들 -->
         <button type="button" id="process-selection">선택된 항목 처리</button>
+        <button type="button" id="delete-selection">선택된 스케줄 삭제</button>
     </form>
 
     <script>
-
         document.getElementById('toggle-check-mode').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('.checkbox');
             const checkModeEnabled = checkboxes[0].style.display === 'none';
             checkboxes.forEach(checkbox => checkbox.style.display = checkModeEnabled ? 'inline-block' : 'none');
             document.getElementById('process-selection').style.display = checkModeEnabled ? 'block' : 'none';
+            document.getElementById('delete-selection').style.display = checkModeEnabled ? 'block' : 'none';
         });
 
         document.getElementById('process-selection').addEventListener('click', () => {
@@ -63,6 +64,7 @@
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => parseInt(checkbox.value, 10));
 
+            // 기존 선택된 항목 처리 요청
             fetch(`/cabinet`, {
                 method: 'POST',
                 headers: {
@@ -80,6 +82,29 @@
                 .catch(error => console.error('Error:', error));
         });
 
+        document.getElementById('delete-selection').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => parseInt(checkbox.value, 10));
+
+            // 스케줄 삭제 요청
+            fetch(`/cabinet/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selectedSchedules: selectedIds })
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url; // 서버가 리다이렉트한 URL로 이동
+                    } else {
+                        console.error('Failed to delete schedules');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 </main>
 </body>

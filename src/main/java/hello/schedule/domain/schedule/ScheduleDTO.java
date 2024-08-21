@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class ScheduleDTO {
 //    private Long id;
     private String name;
-    private LocalDateTime startTime;
-    private LocalDateTime deadline;
+    private String startTime;
+    private String deadline;
     private int difficulty;
     private int urgency;
     private int importance;

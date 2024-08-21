@@ -21,7 +21,9 @@ public class Schedule {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime deadline;
+
     private int difficulty;
     private int urgency;
     private int importance;

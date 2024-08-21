@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,13 +33,20 @@ public class ChartController {
     public String show(Model model, @ModelAttribute("selectedIds") List<Long> selectedIds) {
 
         List<Schedule> schedules = scheduleRepository.findAllById(selectedIds);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
         List<ScheduleDTO> scheduleDTOs = schedules.stream()
                 .map(schedule -> {
                     ScheduleDTO dto = new ScheduleDTO();
 //                    dto.setId(schedule.getId());
                     dto.setName(schedule.getName());
-                    dto.setStartTime(schedule.getStartTime());
-                    dto.setDeadline(schedule.getDeadline());
+                    log.info("Original Deadline: {}", schedule.getDeadline());
+                    String formattedDeadline = schedule.getDeadline().format(formatter);
+                    log.info("Formatted Deadline: {}", formattedDeadline);
+
+                    dto.setStartTime(schedule.getStartTime().format(formatter));
+                    dto.setDeadline(formattedDeadline);
                     dto.setDifficulty(schedule.getDifficulty());
                     dto.setUrgency(schedule.getUrgency());
                     dto.setImportance(schedule.getImportance());
