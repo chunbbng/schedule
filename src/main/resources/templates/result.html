@@ -14,7 +14,7 @@
         <span>일정을</span>
     </div>
     <div class="text-box">
-        <span th:text="${result.adjustDays}">3일</span>
+        <span th:text="${adjustDays}">3일</span>
     </div>
     <div class="box">
         <span>동안</span>
@@ -23,7 +23,7 @@
         <span>하루</span>
     </div>
     <div class="text-box">
-        <span th:text="${result.adjustTime}">1시간</span>
+        <span th:text="${adjustTime}">1시간</span>
     </div>
     <div class="recommendation">
         <span>할애해서 일정을 마무리하기를 추천해 드릴게요</span>
@@ -31,18 +31,28 @@
     <br>
     <!-- Buttons similar to the attached image -->
     <div class="container">
-        <div>
+        <div th:if="${loginId != 'guest'}">
             <form th:action="@{/calendarCheck/{loginId}/{id}(loginId=${loginId}, id=${id})}" method="get">
                 <button type="submit" class="button">
                     <span>Plan 저장하기</span>
                 </button>
+                <div class="button">
+                    <span>Optima 다시 생성하기</span>
+                </div>
+                <div class="button">
+                    <span>다른 Plan과 병합하기</span>
+                </div>
             </form>
         </div>
-        <div class="button">
-            <span>Optima 다시 생성하기</span>
+        <div th:if="${loginId == 'guest'}">
+            <form th:action="@{/}" method="get">
+                <button type="submit" class="button">
+                    <span>          돌아가기</span>
+                </button>
+            </form>
         </div>
-        <div class="button">
-            <span>다른 Plan과 병합하기</span>
+        <div th:if="${loginId == 'guest'}" class="login-prompt">
+            <span>      로그인 하셔서 더 많은 기능을 체험해보세요!</span>
         </div>
     </div>
 </div>

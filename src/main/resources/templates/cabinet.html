@@ -49,6 +49,10 @@
         <button type="button" id="delete-selection">선택된 스케줄 삭제</button>
     </form>
 
+    <div class="back-button-container">
+        <button type="button" onclick="window.history.back();">돌아가기</button>
+    </div>
+
     <script>
         document.getElementById('toggle-check-mode').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('.checkbox');

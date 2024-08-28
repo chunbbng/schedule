@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Plan Optima</title>
     <link rel="stylesheet" th:href="@{/css/cabinet.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <header>
@@ -35,5 +36,99 @@
         <li><a href="/create">Create a New Schedule</a></li>
     </ul>
 </main>
+<!--<form th:action="@{/create}" method="post">-->
+<!--    <div>-->
+<!--        <label>스케줄명을 적어주세요</label>-->
+<!--        <input type="text" id="name" name="name" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label>데드라인을 기입해 주세요</label>-->
+<!--        <input type="date" id="deadLine" name="deadLine" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label>내가 생각하는 작업 난이도?</label>-->
+<!--        <input type="range" id="difficulty" name="difficulty" min="1" max="10" required>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <label>원하는 휴식시간 정도?</label>-->
+<!--        <input type="text" id="restTime" name="restTime" required>-->
+<!--    </div>-->
+<!--    <label>내가 생각하는 우선순위?</label>-->
+<!--    <canvas id="priorityCanvas" width="400" height="400"></canvas>-->
+<!--    <input type="hidden" id="importance" name="importance" value="">-->
+<!--    <input type="hidden" id="urgency" name="urgency" value="">-->
+
+<!--    <div>-->
+<!--        <label>작업 관련 스트레스 수준?</label>-->
+<!--        <div class="stress-container">-->
+<!--            <canvas id="stressCanvas" width="400" height="600"></canvas>-->
+<!--            <input type="range" id="stressSlider" name="stress" min="1" max="10" step="1" value="1" orient="vertical" required>-->
+<!--            <div id="stressValue">스트레스 수준 </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <label>작업 선호 시간대:</label>-->
+<!--        <div class="time-preference">-->
+<!--            <div class="time-option" data-time="새벽">새벽</div>-->
+<!--            <div class="time-option" data-time="아침">아침</div>-->
+<!--            <div class="time-option" data-time="점심">점심</div>-->
+<!--            <div class="time-option" data-time="저녁">저녁</div>-->
+<!--            <div class="time-option" data-time="밤">밤</div>-->
+<!--        </div>-->
+<!--        <input type="hidden" id="preferenceTime" name="preferenceTime" required>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <button type="submit">제출</button>-->
+<!--    </div>-->
+<!--</form>-->
+
+<form th:action="@{/create}" th:method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="deadline">Deadline:</label>
+    <input type="datetime-local" id="deadline" name="deadline" required><br><br>
+
+    <label for="difficulty">Difficulty:</label>
+    <input type="range" id="difficulty" name="difficulty" min="1" max="10" value="5"><br><br>
+
+    <div>
+        <label>원하는 휴식시간 정도?</label>
+        <input type="text" id="restTime" name="restTime" required>
+    </div>
+        <label>내가 생각하는 우선순위?</label>
+        <canvas id="priorityCanvas" width="400" height="400"></canvas>
+        <input type="hidden" id="importance" name="importance" value="">
+        <input type="hidden" id="urgency" name="urgency" value="">
+    <div>
+        <label>작업 관련 스트레스 수준?</label>
+        <div class="stress-container">
+            <canvas id="stressCanvas" width="400" height="600"></canvas>
+            <input type="range" id="stressSlider" name="stress" min="1" max="10" step="1" value="1" orient="vertical" required>
+            <div id="stressValue">스트레스 수준 </div>
+        </div>
+    </div>
+
+    <div>
+        <label>작업 선호 시간대:</label>
+        <div class="time-preference">
+            <div class="time-option" data-time="새벽">새벽</div>
+            <div class="time-option" data-time="아침">아침</div>
+            <div class="time-option" data-time="점심">점심</div>
+            <div class="time-option" data-time="저녁">저녁</div>
+            <div class="time-option" data-time="밤">밤</div>
+        </div>
+            <input type="hidden" id="preferenceTime" name="preferenceTime" required>
+    </div>
+
+    <button type="submit">Save Schedule</button>
+</form>
+
+<script src="/js/index.js"></script>
+<script src="/js/stress.js"></script>
+<script src="/js/timePreference.js"></script>
 </body>
 </html>

@@ -52,9 +52,27 @@
 <body>
 <div class="container">
     <h2>다음 중에서 원하는 작업 방식을 선택해주세요</h2>
-    <a th:href="@{|/result/focus/${loginId}/${id}|}" class="button">빠른 완료를 위한 집중적인 일정</a>
-    <a th:href="@{|/result/distribute/${loginId}/${id}|}" class="button">작업을 분산시켜 천천히 진행하는 일정</a>
-    <a th:href="@{|/result/flexible/${loginId}/${id}|}" class="button">유동적으로 시간 조정이 가능한 일정</a>
+    <form id="optionForm" th:action="@{/select/{loginId}/{id}(loginId=${loginId}, id=${id})}" method="post">
+        <button class="button" type="button" onclick="selectOption('concentrate')">빠른 완료를 위한 집중적인 일정</button>
+        <button class="button" type="button" onclick="selectOption('distribute')">작업을 분산시켜 천천히 진행하는 일정</button>
+        <button class="button" type="button" onclick="selectOption('flexible')">유동적으로 시간 조정이 가능한 일정</button>
+
+        <!-- Hidden input to store selected option -->
+        <input type="hidden" id="selectedOption" name="option">
+        <!-- Hidden input to store schedule id -->
+        <input type="hidden" id="scheduleId" name="id" th:value="${id}">
+    </form>
+
+
 </div>
+
+<script>
+    function selectOption(option) {
+        // Set selected option in the hidden input field
+        document.getElementById('selectedOption').value = option;
+        // Submit the form programmatically
+        document.getElementById('optionForm').submit();
+    }
+</script>
 </body>
 </html>

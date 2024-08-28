@@ -32,6 +32,11 @@ public class Schedule {
     private int stress;
     private Long memberId;
 
+    @Column(nullable = true)
+    private int adjustDays = 0;
+    @Column(nullable = true)  // nullable = true로 설정하여 null 값 허용
+    private double adjustTime = 0.0;  // 기본값을 0.0으로 설정
+
     public enum PreferenceTime {
         MORNING,
         AFTERNOON,
